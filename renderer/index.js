@@ -118,12 +118,37 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Map of tag name -> { count, type }
   const selectedTags = new Map();
-  const favData = JSON.parse(localStorage.getItem('favoriteTags') || '[]');
-  const favorites = new Map(
-    Array.isArray(favData[0])
-      ? favData.map(([name, type]) => [name, (type || 'general').toLowerCase().trim()])
-      : favData.map(name => [name, 'general'])
-  );
+  let favorites = new Map();
+
+  async function loadFavorites() {
+    try {
+      if (window.electronAPI && window.electronAPI.loadFavorites) {
+        const data = await window.electronAPI.loadFavorites();
+        favorites = new Map(
+          Array.isArray(data[0])
+            ? data.map(([name, type]) => [name, (type || 'general').toLowerCase().trim()])
+            : data.map(name => [name, 'general'])
+        );
+      } else {
+        const favData = JSON.parse(localStorage.getItem('favoriteTags') || '[]');
+        favorites = new Map(
+          Array.isArray(favData[0])
+            ? favData.map(([name, type]) => [name, (type || 'general').toLowerCase().trim()])
+            : favData.map(name => [name, 'general'])
+        );
+      }
+    } catch {
+      favorites = new Map();
+    }
+  }
+
+  function saveFavorites() {
+    if (window.electronAPI && window.electronAPI.saveFavorites) {
+      window.electronAPI.saveFavorites(Array.from(favorites.entries()));
+    } else {
+      localStorage.setItem('favoriteTags', JSON.stringify(Array.from(favorites.entries())));
+    }
+  }
 
   function renderFavoritesList() {
     if (!favoritesList) return;
@@ -137,7 +162,7 @@ window.addEventListener('DOMContentLoaded', () => {
       star.textContent = '★';
       star.addEventListener('click', () => {
         favorites.delete(name);
-        localStorage.setItem('favoriteTags', JSON.stringify(Array.from(favorites.entries())));
+        saveFavorites();
         fetchTags();
         renderFavoritesList();
       });
@@ -237,6 +262,10 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   refreshSavedPromptList();
+
+  loadFavorites().then(() => {
+    renderFavoritesList();
+  });
 
   if (categoryFilters) {
     categoryFilters.addEventListener('change', applyFilters);
@@ -378,7 +407,7 @@ window.addEventListener('DOMContentLoaded', () => {
           star.classList.add('active');
           div.dataset.favorite = 'true';
         }
-        localStorage.setItem('favoriteTags', JSON.stringify(Array.from(favorites.entries())));
+        saveFavorites();
         fetchTags();
         renderFavoritesList();
       });

@@ -23,6 +23,9 @@ DanbooruPromptAssistant は、Danbooru でタグ検索を行いながら AI 画�
 ### 保存プロンプト
 保存したプロンプトは `saved_prompts.json` に記録され、一覧から呼び出し・削除できます。
 
+### お気に入りタグファイル
+お気に入りタグは `favorites.json` に保存されます。`dictionary.json`、`saved_prompts.json`、`favorites.json` の3つのファイルは配布アーカイブには含まれておらず、初回起動時に自動生成されます。
+
 ### 裏ワザ
 プロンプト入力欄に既に構築済みのプロンプトを貼り付けて保存しておき、あとからそのプロンプトをロードすると上部の Tag Stock に反映されます。これにより逆引き検索やお気に入り登録のように利用できます。
 
