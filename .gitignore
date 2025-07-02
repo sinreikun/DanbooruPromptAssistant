@@ -1,3 +1,6 @@
 node_modules/
 *.png
+dictionary.json
+saved_prompts.json
+favorites.json
 

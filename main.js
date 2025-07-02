@@ -7,6 +7,7 @@ const fs = require('fs');
 
 let promptsPath = '';
 let dictionaryPath = path.join(__dirname, 'dictionary.json');
+let favoritesPath = path.join(__dirname, 'favorites.json');
 
 let translateWindow = null;
 
@@ -84,8 +85,20 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-  // store saved prompts in the project root so users can easily edit them
+  // store saved prompts and dictionaries in the project root so users can easily edit them
   promptsPath = path.join(__dirname, 'saved_prompts.json');
+  dictionaryPath = path.join(__dirname, 'dictionary.json');
+  favoritesPath = path.join(__dirname, 'favorites.json');
+
+  if (!fs.existsSync(promptsPath)) {
+    fs.writeFileSync(promptsPath, '[]');
+  }
+  if (!fs.existsSync(dictionaryPath)) {
+    fs.writeFileSync(dictionaryPath, '{}');
+  }
+  if (!fs.existsSync(favoritesPath)) {
+    fs.writeFileSync(favoritesPath, '[]');
+  }
 
   ipcMain.handle('save-prompt', (_event, data) => {
     try {
@@ -120,6 +133,25 @@ app.whenReady().then(() => {
       } catch {}
       const filtered = list.filter(p => p.name !== name);
       fs.writeFileSync(promptsPath, JSON.stringify(filtered, null, 2));
+      return true;
+    } catch {
+      return false;
+    }
+  });
+
+  ipcMain.handle('load-favorites', () => {
+    try {
+      const list = JSON.parse(fs.readFileSync(favoritesPath, 'utf8'));
+      return Array.isArray(list) ? list : [];
+    } catch {
+      return [];
+    }
+  });
+
+  ipcMain.handle('save-favorites', (_event, data) => {
+    try {
+      if (!Array.isArray(data)) return false;
+      fs.writeFileSync(favoritesPath, JSON.stringify(data, null, 2));
       return true;
     } catch {
       return false;

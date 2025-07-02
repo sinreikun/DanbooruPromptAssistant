@@ -7,5 +7,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   loadPrompts: () => ipcRenderer.invoke('load-prompts'),
   deletePrompt: (name) => ipcRenderer.invoke('delete-prompt', name),
   registerContextMenu: (id) => ipcRenderer.send('register-context-menu', id),
-  addDictionaryEntry: (jp, en) => ipcRenderer.invoke('add-dict-entry', { jp, en })
+  addDictionaryEntry: (jp, en) => ipcRenderer.invoke('add-dict-entry', { jp, en }),
+  loadFavorites: () => ipcRenderer.invoke('load-favorites'),
+  saveFavorites: (data) => ipcRenderer.invoke('save-favorites', data)
 });
