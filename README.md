@@ -25,3 +25,7 @@ DanbooruPromptAssistant は、Danbooru でタグ検索を行いながら AI 画�
 
 ## ライセンス
 本プロジェクトは ISC ライセンスです。
+
+## スクリーンショット
+以下はアプリケーション起動時の画面例です。
+![アプリのスクリーンショット](screenshot/screenshot.png)
