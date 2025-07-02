@@ -1,0 +1,160 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+#mainArea {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: stretch;
+}
+
+#danbooruContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#browserToolbar {
+  display: flex;
+  align-items: center;
+  background: #eee;
+  padding: 4px;
+  gap: 4px;
+  font-size: 0.9em;
+}
+
+#addressDisplay {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+#danbooruView {
+  width: 100%;
+  flex: 1;
+  height: 100%;
+}
+
+input {
+  margin: 5px;
+}
+
+#searchBtn {
+  margin-top: 10px;
+}
+
+#sidePanel {
+  text-align: left;
+  width: 300px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  height: 100%;
+}
+
+#tagStock .tag-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  padding: 2px 4px;
+}
+
+#tagStock {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.tag-item.checked {
+  background-color: #e6f7ff;
+  border-left: 4px solid #1890ff;
+}
+
+.tag-item .favorite {
+  cursor: pointer;
+  margin-right: 4px;
+  color: #ccc;
+}
+
+.tag-item .favorite.active {
+  color: #ffac33;
+}
+
+#savedPromptList {
+  list-style: none;
+  padding-left: 0;
+}
+
+#savedPromptList li {
+  margin-bottom: 4px;
+}
+
+#savedPromptList button {
+  margin-left: 4px;
+}
+
+.resizer {
+  width: 5px;
+  cursor: col-resize;
+  background: #ccc;
+  flex-shrink: 0;
+  height: 100%;
+}
+
+#tagControls {
+  margin-bottom: 8px;
+}
+
+#favoritesPanel {
+  border: 1px solid #ccc;
+  margin-bottom: 8px;
+}
+
+#favoritesPanel summary {
+  cursor: pointer;
+  padding: 4px;
+  background: #f7f7f7;
+}
+
+#favoritesList .favorite-item {
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+}
+
+#favoritesList .favorite-item .favorite {
+  margin-right: 4px;
+  cursor: pointer;
+  color: #ffac33;
+}
+
+#searchArea {
+  margin-bottom: 10px;
+}
+
+#categoryFilters label {
+  margin-right: 6px;
+  font-size: 0.9em;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+}

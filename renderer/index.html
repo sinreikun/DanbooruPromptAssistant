@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Danbooru Prompt Assistant</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="mainArea">
+    <div id="danbooruContainer">
+      <div id="browserToolbar">
+        <button id="backBtn">◀</button>
+        <button id="forwardBtn">▶</button>
+        <span id="addressDisplay" title="クリックでコピー"></span>
+        <button id="randomPostBtn">ランダム</button>
+        </div>
+      <webview id="danbooruView" src="https://danbooru.donmai.us" allowpopups></webview>
+    </div>
+    <div id="resizer" class="resizer"></div>
+    <div id="sidePanel">
+      <div id="searchArea">
+        <div>
+          <label>日本語キーワード:</label>
+          <input type="text" id="jpInput" placeholder="例: 笑顔, 猫耳" />
+        </div>
+
+        <div>
+          <label>英語タグ:</label>
+          <input type="text" id="enInput" placeholder="例: smile, nekomimi" />
+        </div>
+
+        <button id="searchBtn">検索（Web表示）</button>
+        <button id="translateBtn">Google翻訳で開く</button>
+        <button id="applyTranslationBtn">翻訳結果で検索</button>
+        <hr />
+      </div>
+      <h3>Tag Stock</h3>
+      <div id="tagControls">
+        <button id="selectAllBtn">全て選択</button>
+        <button id="deselectAllBtn">全て解除</button>
+      </div>
+      <details id="favoritesPanel" open>
+        <summary>★ お気に入り</summary>
+        <div id="favoritesList"></div>
+      </details>
+      <div id="categoryFilters">
+        <label><input type="checkbox" checked data-type="general"> General</label>
+        <label><input type="checkbox" checked data-type="artist"> Artist</label>
+        <label><input type="checkbox" checked data-type="character"> Character</label>
+        <label><input type="checkbox" checked data-type="copyright"> Copyright</label>
+        <label><input type="checkbox" checked data-type="meta"> Meta</label>
+      </div>
+      <div id="tagStock"></div>
+
+      <h3>Prompt</h3>
+      <textarea id="promptOutput" rows="4" style="width:100%;"></textarea>
+      <div>
+        <button id="copyPromptBtn">コピー</button>
+        <button id="savePromptBtn">保存</button>
+      </div>
+
+      <h4>Saved Prompts</h4>
+      <ul id="savedPromptList"></ul>
+    </div>
+    <div id="titleModal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <label>タイトル:</label>
+        <input type="text" id="titleInput" />
+        <button id="titleOk">OK</button>
+        <button id="titleCancel">キャンセル</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
